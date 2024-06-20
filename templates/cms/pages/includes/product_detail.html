@@ -1,0 +1,29 @@
+{% load i18n vicky wagtailcore_tags %}
+
+<section class="b-block bg-secondary text-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <h1>{{ product.name }}</h1>
+                {% if product.price %}
+                    <p class="lead">{{ product.display_price }}</p>
+                {% endif %}
+                {{ product.description|richtext }}
+                <div class="mt-5">
+                {% if product.has_form_blocks %}
+                    <button class="btn btn-primary" data-scroll-target=".b-form">{% trans "Send a message" %}</button>
+                {% endif %}
+                {% if product.has_documents_blocks %}
+                    <button class="btn btn-primary" data-scroll-target=".b-documents">{% trans "View downloads" %}</button>
+                {% endif %}
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mt-5 mt-md-0">
+                {% include "cms/pages/includes/product_image_carousel.html" with product=product only %}
+            </div>
+        </div>
+    </div>
+</section>
+{% for block in product.content %}
+    {% include_block block %}
+{% endfor %}

@@ -1,0 +1,49 @@
+{% load i18n crispy_forms_tags vicky %}
+
+{% block pre_content %}{% endblock %}
+{% block content %}
+{% get_filter_form_summary filter_form as filter_form_summary %}
+<div class="card">
+    <div class="card-body">
+        <button class="d-lg-none navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="offcanvas" aria-label="{% trans 'Toggle filters' %}">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-filter me-2"></i>{% trans "Filters" %}
+                {% if filter_form_summary %}
+                    <span class="d-inline-block text-muted text-truncate ms-2" style="max-width:240px;">{{ filter_form_summary }}</span>
+                {% endif %}
+            </div>
+        </button>
+        {% block pre_form %}{% endblock %}
+        {% block form %}
+        <form method="get" novalidate class="d-none d-lg-block">
+            {% csrf_token %}
+            {{ filter_form.form|crispy }}
+            <button type="submit" class="btn btn-primary">{% trans 'Apply' %}</button>
+            {% if filter_form_summary %}
+                <a href="{{ page.url }}" class="btn btn-default">{% trans 'Reset filters' %}</a>
+            {% endif %}
+        </form>
+        {% endblock %}
+        {% block post_form %}{% endblock %}
+    </div>
+</div>
+<div class="d-lg-none offcanvas offcanvas-end" tabindex="-1" id="filters">
+    <div class="offcanvas-header">
+        <span class="h2 mb-0">
+            <i class="fas fa-filter me-2"></i>{% trans "Filters" %}
+        </span>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{% trans 'Close' %}"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form method="get" novalidate>
+            {% csrf_token %}
+            {{ filter_form.form|crispy }}
+            <button type="submit" class="btn btn-primary">{% trans 'Apply' %}</button>
+            {% if filter_form_summary %}
+                <a href="{{ page.url }}" class="btn btn-default">{% trans 'Reset filters' %}</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block post_content %}{% endblock %}

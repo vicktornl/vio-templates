@@ -1,0 +1,16 @@
+{% extends "cms/blocks/base.html" %}
+
+{% block classname %}logo{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="logo" %}{% endblock %}
+    {% block logos %}
+    <div class="d-flex align-items-center justify-content-space-between">
+        {% for logo in self.logos %}
+            {% include "cms/blocks/snippets/includes/logo.html" with logo=logo only %}
+        {% endfor %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

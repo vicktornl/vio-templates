@@ -1,0 +1,30 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load vicky wagtailcore_tags %}
+
+{% block classname %}image-text{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="order-1 order-lg-{{ css_title_order }} col-lg">
+            <div class="b-image-text__text">
+                {% include "cms/blocks/includes/title.html" with modifier="image_text" %}
+                {{ self.text }}
+            </div>
+            {% block actions %}
+                {% if self.buttons %}
+                <div class="b-image-text__actions mt-5">
+                    {% include_block self.buttons %}
+                </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+        <div class="order-2 order-lg-{{ css_image_order }} col-lg">
+            <div class="b-image-text__image b-image-text__image--{{ self.image_alignment }}">
+                {% render_image self.image %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

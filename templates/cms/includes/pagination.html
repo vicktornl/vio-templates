@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if prev_page_url %}
+        <li class="page-item">
+            <a class="page-link" href="{{ prev_page_url }}" aria-label="{% trans 'Previous' %}">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for page_num, page_url in pages %}
+        {% if page_num == current %}<li class="page-item active" aria-current="true">{% else %}<li class="page-item"></li>{% endif %}
+            <a class="page-link" href="{{ page_url }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+        {% if next_page_url %}
+        <li class="page-item">
+            <a class="page-link" href="{{ next_page_url }}" aria-label="{% trans 'Next' %}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

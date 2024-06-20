@@ -1,0 +1,40 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load i18n crispy_forms_tags vicky wagtailcore_tags %}
+
+{% block classname %}form{% endblock %}
+
+{% block content %}
+{% unique_id "form" as id %}
+{% if not request.form_success is self.form.id %}
+    <div class="container">
+        {% block title %}{% include "cms/blocks/includes/title.html" with modifier="form" %}{% endblock %}
+        {% block form %}
+        <form id="{{ id }}" action="" method="POST" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="form_id" value="{{ self.form.id }}">
+            {% crispy form %}
+            <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        </form>
+        {% endblock %}
+    </div>
+    <style>#div_id_vicky-asdf-pot{display:none;}</style>
+{% else %}
+    {% for block in self.form.form_landing_page_content %}
+        {% include_block block %}
+    {% endfor %}
+{% endif %}
+{% if not request.form_success is self.form.id and form.errors %}
+<script>
+    window.onload = function() {
+        document.getElementById("{{ id }}").scrollIntoView();
+    };
+</script>
+{% elif request.form_success is self.form.id %}
+<script>
+    window.onload = function() {
+        document.querySelector(".b-form").scrollIntoView();
+    };
+</script>
+{% endif %}
+{% endblock %}

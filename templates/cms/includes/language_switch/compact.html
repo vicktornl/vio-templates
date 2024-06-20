@@ -1,0 +1,17 @@
+{% load i18n wagtailcore_tags %}
+
+<div class="c-language-switch c-language-switch--compact">
+    {% for language_code, language_name in LANGUAGES %}
+        {% get_language_info for language_code as lang %}
+        {% language language_code %}
+        {% if page.localized.locale.language_code == language_code %}
+            <a href="{% pageurl page.localized %}" class="c-language-switch__language{% if language_code == request.LANGUAGE_CODE %} c-language-switch__language--active{% endif %}">{{ language_code }}</a>
+        {% else %}
+            <a href="/{{ language_code }}/" class="c-language-switch__language">{{ language_code }}</a>
+        {% endif %}
+        {% endlanguage %}
+        {% if not forloop.last %}
+            <span class="c-language-switch__seperator">/</span>
+        {% endif %}
+    {% endfor %}
+</div>

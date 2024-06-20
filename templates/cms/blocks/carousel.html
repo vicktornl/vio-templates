@@ -1,0 +1,21 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load vicky %}
+
+{% block classname %}carousel{% endblock %}
+
+{% block content %}
+{% unique_id "carousel" as id %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="carousel" %}{% endblock %}
+    <div id="{{ id }}" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for item in self.items %}
+            <div class="carousel-item active">
+                {% include "cms/blocks/includes/slide.html" with item=item only %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block classname %}cta{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include "cms/blocks/includes/title.html" with modifier="cta" %}
+    {% block actions %}
+    <div class="b-cta__actions">
+        {% include_block self.buttons %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

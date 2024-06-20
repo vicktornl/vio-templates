@@ -1,0 +1,22 @@
+{% if self.name%}
+    <h5 class="text-small mb-4">
+        <small>{{ self.name }}</small>
+    </h5>
+{% endif %}
+{% if self.items %}
+    <ul class="list-unstyled text-small mb-0">
+        {% for item in self.items %}
+            {% if item.block_type == "button" %}
+                {% for block in item.value %}
+                <li class="mb-3">
+                    <a href="{{ block.value.button_url }}" target="{{ block.value.button_target }}" >{{ block.value.label }}</a>
+                </li>
+                {% endfor %}
+            {% else %}
+                <li class="mb-0">
+                    {{ item }}
+                </li>
+                {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

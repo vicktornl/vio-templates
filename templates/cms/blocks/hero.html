@@ -1,0 +1,37 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+
+{% block classname %}hero{% endblock %}
+
+{% block attrs %}{% image self.image width-1920 as img %}style="background-image: url('{{ img.url }}'); background-size: cover; background-repeat: no-repeat; background-position: 50%;"{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}
+        {% if self.title %}
+            <h1 class="b-hero__title">
+                <span>{{ self.title }}</span>
+            </h1>
+        {% endif %}
+    {% endblock %}
+
+    {% block subtitle %}
+        {% if self.subtitle %}
+            <p class="b-hero__subtitle lead">
+                <span>{{ self.subtitle }}</span>
+            </p>
+        {% endif %}
+    {% endblock %}
+
+    {% block buttons %}
+        {% if self.buttons %}
+            <div class="b-hero__buttons">
+                {% for button in self.buttons %}
+                    {% include_block button %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endblock %}
+</div>
+{% endblock %}

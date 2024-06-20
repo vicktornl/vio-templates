@@ -1,0 +1,14 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load wagtailembeds_tags %}
+
+{% block classname %}video{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="video" %}{% endblock %}
+    <div class="ratio ratio-16x9">
+        {% embed self.video.url %}
+    </div>
+</div>
+{% endblock %}

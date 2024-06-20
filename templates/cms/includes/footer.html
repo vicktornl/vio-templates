@@ -1,0 +1,41 @@
+{% load wagtailthemebuilder_tags %}
+
+<footer class="c-footer bg-tertiary py-5 d-print-none">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg mb-3 mb-lg-0">
+                {% block logo %}
+                <a title="{{ settings.cms.sitesettings.site_name }}" href="/">
+                    <img src="{% theme 'static/logo.png' %}" width="auto" height="58px" alt="{{ settings.cms.sitesettings.site_name }}">
+                </a>
+                {% endblock %}
+            </div>
+            {% block sections %}
+            {% for menu in settings.cms.sitesettings.footer_menu.items %}
+                <div class="col-12 col-lg">
+                    {{ menu}}
+                </div>
+            {% endfor %}
+            {% endblock %}
+            <div class="col-12 col-lg">
+                {% block social_media %}
+                {% if settings.cms.sitesettings.twitter %}<a href="{{ settings.cms.sitesettings.twitter }}" target="_blank" class="btn btn-secondary"><span class="icon icon-twitter"></span></a>{% endif %}
+                {% if settings.cms.sitesettings.facebook %}<a href="{{ settings.cms.sitesettings.facebook }}" target="_blank" class="btn btn-secondary"><span class="icon icon-facebook"></span></a>{% endif %}
+                {% if settings.cms.sitesettings.linkedin %}<a href="{{ settings.cms.sitesettings.linkedin }}" target="_blank" class="btn btn-secondary"><span class="icon icon-linkedin"></span></a>{% endif %}
+                {% if settings.cms.sitesettings.instagram %}<a href="{{ settings.cms.sitesettings.instagram }}" target="_blank" class="btn btn-secondary"><span class="icon icon-instagram"></span></a>{% endif %}
+                {% if settings.cms.sitesettings.tiktok %}<a href="{{ settings.cms.sitesettings.tiktok }}" target="_blank" class="btn btn-secondary"><span class="icon icon-tiktok"></span></a>{% endif %}
+                {% if settings.cms.sitesettings.youtube %}<a href="{{ settings.cms.sitesettings.youtube }}" target="_blank" class="btn btn-secondary"><span class="icon icon-youtube"></span></a>{% endif %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="row mt-3 pt-3 border-top">
+            <div class="col-12">
+                {% block copyright %}
+                <p class="text-muted">
+                        &copy; {% now "Y" %} {{ settings.cms.sitesettings.copyright }}
+                </p>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,115 @@
+{% load i18n vicky static wagtailthemebuilder_tags wagtailcore_tags wagtailuserbar hijack %}
+{% with settings.cms.SiteSettings as site_settings %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE }}" prefix="og: http://ogp.me/ns#">
+    <head>
+        {% include "wagtail_analytics/head.html" %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block favicon %}
+        <link rel="icon" type="image/png" sizes="32x32" href="{% theme 'static/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% theme 'static/favicon-16x16.png' %}">
+        {% endblock %}
+        {% block meta_tags %}
+        <meta name="title" content="{% block meta_title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}">
+        <meta name="description" content="{{ page.search_description }}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ page.full_url }}">
+        <meta property="og:title" content="">
+        <meta property="og:description" content="">
+        <meta property="og:image" content="{% theme 'static/social.jpg' %}">
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ page.full_url }}">
+        <meta property="twitter:title" content="">
+        <meta property="twitter:description" content="">
+        <meta property="twitter:image" content="{% theme 'static/social.jpg' %}">
+        {% endblock %}
+        {% block extra_meta_tags %}{% endblock %}
+        {% block translations %}
+        {% if django_settings.WAGTAIL_I18N_ENABLED and page %}
+            {% for language_code, language_name in LANGUAGES %}
+                {% get_language_info for language_code as lang %}
+                {% language language_code %}
+                {% if page.localized.locale.language_code == language_code %}
+                    <link rel="alternate" hreflang="{{ language_code }}" href="{% pageurl page.localized %}" title="{{ page.localized.seo_title|default:page.localized.title }}">
+                {% endif %}
+                {% endlanguage %}
+            {% endfor %}
+        {% endif %}
+        {% endblock %}
+        {% block extra_head %}{% endblock %}
+        {% block styles %}
+        {% if django_settings.VICKY_APPS_THEME_BUILDER %}
+            {% include "cms/theme_builder/head.html" %}
+        {% else %}
+            <link rel="stylesheet" href="{% theme 'theme.css' %}">
+        {% endif %}
+        {% endblock %}
+        {% block extra_styles %}{% endblock %}
+        {% if site_settings.head_scripts %}
+          {% for block in site_settings.head_scripts %}
+            {% include_block block %}
+          {% endfor %}
+        {% endif %}
+        <title>{% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %} | {{ settings.cms.sitesettings.site_name }}{% endblock %}</title>
+    </head>
+    <body class="page page__{% block body_classname %}{% endblock %}">
+        {% wagtailuserbar 'bottom-right' %}
+        {% include "wagtail_analytics/body.html" %}
+        {% if site_settings.start_of_body_scripts %}
+          {% for block in site_settings.start_of_body_scripts %}
+            {% include_block block %}
+          {% endfor %}
+        {% endif %}
+        {% block pre_wrapper %}{% endblock %}
+        <div class="wrapper">
+            {% block start_of_body %}{% endblock %}
+            {% block pre_header %}{% endblock %}
+            {% block header %}{% render_header %}{% endblock %}
+            {% block post_header %}{% endblock %}
+            {% block pre_body_content %}{% endblock %}
+            <div class="content {% block content_classname %}{% endblock %}">
+                {% block pre_content %}{% endblock %}
+                {% block pre_breadcrumb %}{% endblock %}
+                {% block breadcrumb %}{% render_breadcrumb %}{% endblock %}
+                {% block post_breadcrumb %}{% endblock %}
+                {% block content %}{% endblock %}
+                {% block post_content %}{% endblock %}
+            </div>
+            {% block post_body_content %}{% endblock %}
+            {% block pre_footer %}{% endblock %}
+            {% block footer %}{% render_footer %}{% endblock %}
+            {% block post_footer %}{% endblock %}
+            {% block end_of_body %}{% endblock %}
+        </div>
+        {% block post_wrapper %}{% endblock %}
+        {% block hijack %}
+        {% if request.user|can_hijack:another_user %}
+            <form action="{% url 'hijack:acquire' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="user_pk" value="{{ another_user.pk }}">
+                <button type="submit">hijack {{ another_user }}</button>
+                <input type="hidden" name="next" value="{{ request.path }}">
+            </form>
+        {% endif %}
+        {% endblock %}
+        {% block lazysizes_scripts %}
+        <script async src="{% static 'lazysizes.js' %}"></script>
+        {% endblock %}
+        {% block scripts %}
+        {% if django_settings.VICKY_APPS_THEME_BUILDER %}
+            {% include "cms/theme_builder/body.html" %}
+        {% else %}
+            <script defer src="{% theme 'theme.js' %}"></script>
+        {% endif %}
+        {% endblock scripts %}
+        {% block extra_scripts %}{% endblock %}
+        {% block structered_data %}{% endblock %}
+        {% if site_settings.end_of_body_scripts %}
+          {% for block in site_settings.end_of_body_scripts %}
+            {% include_block block %}
+          {% endfor %}
+        {% endif %}
+    </body>
+</html>
+{% endwith %}

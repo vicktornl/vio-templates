@@ -1,0 +1,18 @@
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+
+<a href="{{ url }}" class="c-product card h-100">
+    {% if product.image %}
+        {% image_url product.image.image "max-1000x1000" as img_url %}
+        <div class="ratio ratio-1x1 overflow-hidden">
+            <div class="d-flex align-items-center justify-content-center">
+                <img src="{{ img_url }}" class="c-product__image card-img-top" alt="{{ product.image.image.title }}">
+            </div>
+        </div>
+    {% endif %}
+    <div class="card-body">
+        <h5 class="c-product__name card-title">{{ product.name }}</h5>
+        {% if product.price %}
+            <h6 class="c-product__price card-subtitle mb-2 text-muted">{{ product.display_price }}</h6>
+        {% endif %}
+    </div>
+</a>

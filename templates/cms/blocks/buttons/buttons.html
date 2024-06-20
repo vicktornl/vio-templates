@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+<div class="b-button">
+    {% for button in value %}
+        {% include_block button %}
+    {% endfor %}
+</div>

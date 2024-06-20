@@ -1,0 +1,21 @@
+{% extends "cms/blocks/base.html" %}
+
+{% block classname %}quote{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="quote" %}{% endblock %}
+    <blockquote class="blockquote">
+        <p>{{ self.quote.quote }}</p>
+        {% if self.quote.source or self.quote.person %}
+        <footer class="blockquote-footer">
+            {% if self.quote.source %}
+                {{ self.quote.source }}
+            {% elif self.quote.person %}
+                {{ self.quote.person.name }}{% if self.quote.person.display_title %} <cite title="{{ self.quote.person.display_title }}">{{ self.quote.person.display_title }}</cite>{% endif %}
+            {% endif %}
+        </footer>
+        {% endif %}
+    </blockquote>
+</div>
+{% endblock %}

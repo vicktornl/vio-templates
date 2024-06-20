@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load vicky wagtailthemebuilder_tags %}
+
+{% block pre_content %}
+{% for block in self.hero %}
+    {% include_theme_block block %}
+{% endfor %}
+{% if not self.hero %}
+<div class="c-hero-placeholder"></div>
+{% endif %}
+{% endblock %}
+
+{% block post_breadcrumb %}
+{% if django_settings.VICKY_SIBLING_NAVIGATION_ENABLED %}
+    {% render_sibling_navigation %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% for block in self.content %}
+    {% include_theme_block block %}
+{% endfor %}
+{% endblock %}

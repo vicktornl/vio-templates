@@ -1,0 +1,37 @@
+{% block breadcrumb %}
+{% if ancestors|length > 1 %}
+<div class="c-breadcrumb container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {% for obj in ancestors %}
+                {% if page.id == obj.id %}
+                    <li class="breadcrumb-item active" aria-current="page">{% if obj.seo_title %}{{ obj.seo_title }}{% else %}{{ obj.title }}{% endif %}</li>
+                {% else %}
+                    <li class="breadcrumb-item">
+                        <a href="{{ obj.full_url }}">{% if obj.seo_title %}{{ obj.seo_title }}{% else %}{{ obj.title }}{% endif %}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+</div>
+{% endif %}
+{% endblock %}
+{% block structered_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {% for obj in ancestors %}
+            {
+                "@type": "ListItem",
+                "position": {{ obj.depth|add:"-1" }},
+                "name": "{% if obj.seo_title %}{{ obj.seo_title }}{% else %}{{ obj.title }}{% endif %}",
+                "item": "{{ obj.full_url }}"
+            }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }
+</script>
+{% endblock %}

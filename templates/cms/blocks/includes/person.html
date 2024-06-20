@@ -1,0 +1,20 @@
+{% load wagtailimages_tags %}
+
+<div class="card">
+    {% if person.image %}
+        {% image person.image fill-1000x1000 as img %}
+        <img src="{{ img.url }}" class="card-img-top" alt="{{ person.name }}">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ person.name }}</h5>
+        {% if person.display_title %}
+            <p class="card-text">{{ person.display_title }}</p>
+        {% endif %}
+        {% if person.biography %}
+            {{ person.biography }}
+        {% endif %}
+        {% if person.profile %}
+          <a href="{{ person.profile.url }}" class="stretched-link"></a>
+      {% endif %}
+    </div>
+</div>

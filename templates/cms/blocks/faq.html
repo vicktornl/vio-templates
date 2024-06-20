@@ -1,0 +1,29 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load vicky %}
+
+{% block classname %}faq{% endblock %}
+
+{% block content %}
+{% unique_id "faq" as id %}
+<div class="container">
+    {% include "cms/blocks/includes/title.html" with modifier="faq" %}
+    <div class="accordion" id="accordion-{{ id }}">
+        {% for item in self.items %}
+        <div class="accordion-item">
+            {% unique_id "faq-item" as item_id %}
+            <h2 class="accordion-header" id="{{ item_id }}-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ item_id }}" aria-expanded="false" aria-controls="{{ item_id }}">
+                    {{ item.question }}
+                </button>
+            </h2>
+            <div id="{{ item_id }}" class="accordion-collapse collapse" aria-labelledby="{{ item_id }}-header" data-bs-parent="#{{ id }}">
+                <div class="accordion-body">
+                    {{ item.answer }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

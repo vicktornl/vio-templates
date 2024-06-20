@@ -1,0 +1,12 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load vicky %}
+
+{% block classname %}image{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="image" %}{% endblock %}
+    {% render_image self.image %}
+</div>
+{% endblock %}

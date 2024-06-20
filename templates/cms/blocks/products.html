@@ -1,0 +1,27 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block classname %}products{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="products" %}{% endblock %}
+    {% block products %}
+    <div class="row">
+        {% for item in self.items %}
+        <div class="col-12 col-lg-{{ col_size_lg }} mb-3">
+            {% include "cms/blocks/includes/product.html" with product=item.product only %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+    {% block actions %}
+        {% if self.buttons %}
+        <div class="b-products__actions mt-5">
+            {% include_block self.buttons %}
+        </div>
+        {% endif %}
+    {% endblock %}
+</div>
+{% endblock %}

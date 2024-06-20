@@ -1,0 +1,11 @@
+{% block title %}
+{% if self.title %}
+    <h2 class="c-typography__title c-typography__title--{{ modifier }}{% if not self.subtitle %} mb-5{% endif %}">{{ self.title }}</h2>
+{% endif %}
+{% endblock %}
+
+{% block subtitle %}
+{% if self.subtitle %}
+    <p class="c-typography__subtitle c-typography__subtitle--{{ modifier }} lead mb-5">{{ self.subtitle }}</p>
+{% endif %}
+{% endblock %}

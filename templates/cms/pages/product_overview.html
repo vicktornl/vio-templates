@@ -1,0 +1,40 @@
+{% extends "cms/pages/base.html" %}
+
+{% load i18n vicky wagtailcore_tags wagtailroutablepage_tags %}
+
+{% block body_classname %}product-overview{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col col-12 col-lg-3 mb-3">
+            {% block filters %}
+                {% include "cms/pages/includes/product_filter.html" with page=page filter_form=filter_form only %}
+            {% endblock %}
+        </div>
+        <div class="col col-12 col-lg-9">
+            {% if page_obj %}
+                {% block products %}
+                <div class="row">
+                    {% for product in page_obj %}
+                    <div class="col col-12 col-lg-4 mb-3">
+                        {% routablepageurl page "product_detail" product.slug as product_url %}
+                        {% include "cms/blocks/includes/product.html" with url=product_url product=product only %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endblock %}
+                {% block pagination %}
+                {% if page_obj.paginator.num_pages > 1 %}
+                    {% render_pagination page_obj %}
+                {% endif %}
+                {% endblock %}
+            {% else %}
+                {% block no_products %}
+                <p>{% trans "No products found." %}</p>
+                {% endblock %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

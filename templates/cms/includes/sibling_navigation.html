@@ -1,0 +1,15 @@
+{% if siblings|length > min_length %}
+<div class="list-group">
+    {% for obj in siblings %}
+        {% if page.id == obj.id %}
+            <a href="{{ obj.url }}" class="list-group-item list-group-item-action active" aria-current="true">
+                {% if obj.seo_title %}{{ obj.seo_title }}{% else %}{{ obj.title }}{% endif %}
+            </a>
+        {% else %}
+            <a href="{{ obj.url }}" class="list-group-item list-group-item-action">
+                {% if obj.seo_title %}{{ obj.seo_title }}{% else %}{{ obj.title }}{% endif %}
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}

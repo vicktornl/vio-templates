@@ -1,0 +1,17 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block classname %}text{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include "cms/blocks/includes/title.html" with modifier="text" %}
+    {% if self.text %}{{ self.text }}{% endif %}
+    {% if self.buttons %}
+    <div class="b-text__actions mt-5">
+        {% include_block self.buttons %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

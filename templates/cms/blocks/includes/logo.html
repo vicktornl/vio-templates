@@ -1,0 +1,10 @@
+{% load wagtailimages_tags %}
+
+{% if logo.url %}<a href="{{ logo.url }}" target="_blank" rel="noopener noreferrer">{% endif %}
+<picture>
+    {% image logo.image width-540 as img %}
+    {% image logo.image width-540 format-webp as img_webp %}
+    <source data-srcset="{{ img_webp.url }}" type="image/webp">
+    <img data-src="{{ img.url }}" class="b-logos__logo lazyload img-fluid" alt="{{ logo.value.name }}">
+</picture>
+{% if logo.url %}</a>{% endif %}

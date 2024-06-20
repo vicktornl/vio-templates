@@ -1,0 +1,23 @@
+{% load vicky wagtailimages_tags %}
+
+<div class="c-banner card h-100">
+    {% if banner.image %}
+        {% image banner.image fill-1000x1000 as img %}
+        <img src="{{ img.url }}" class="c-banner__image card-img-top" alt="{{ img.title }}">
+    {% endif %}
+    <div class="card-body">
+        {% block title %}
+            {% if banner.title %}
+                <h3 class="c-banner__title card-title">{{ banner.title }}</h3>
+            {% endif %}
+        {% endblock %}
+        {% block subtitle %}
+            {% if banner.subtitle %}
+                <p class="c-banner__subtitle card-text">{{ banner.subtitle }}</p>
+            {% endif %}
+        {% endblock %}
+        {% if banner.target %}
+            <a href="{% target_href banner.target %}" target="{% target banner.target %}" class="stretched-link"></a>
+        {% endif %}
+    </div>
+</div>

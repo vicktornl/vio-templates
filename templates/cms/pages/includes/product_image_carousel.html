@@ -1,0 +1,38 @@
+{% load i18n vicky %}
+
+{% unique_id "carousel" as id %}
+
+<div class="c-product-image-carousel">
+    <div id="carousel-{{ id }}" class="carousel slide" data-bs-ride="false">
+        <div class="c-product-image-carousel__items carousel-inner">
+            {% for image in product.images.all %}
+            <div class="c-product-image-carousel__item carousel-item{% if forloop.first %} active{% endif %}">
+                <div class="ratio ratio-1x1 overflow-hidden">
+                    <div class="d-flex align-items-center justify-content-center">
+                        {% render_image image.image filter="max-890x890" %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">{% trans 'Previous' %}</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">{% trans 'Next' %}</span>
+            </button>
+        </div>
+        <ul class="c-product-image-carousel__indicators carousel-indicators d-none d-lg-flex">
+            {% for image in product.images.all %}
+            <li class="c-product-image-carousel__indicator{% if forloop.first %} active{% endif %}" data-bs-target="#carousel-{{ id }}" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="{% trans 'Slide' %} {{ forloop.counter }}"{% if forloop.first %} aria-current="true"{% endif %}>
+                <div class="ratio ratio-1x1 overflow-hidden">
+                    <div class="d-flex align-items-center justify-content-center">
+                        {% render_image image.image filter="max-85x85" %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

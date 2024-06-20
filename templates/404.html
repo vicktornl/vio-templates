@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block meta_title %}{% trans "Not found" %} | {{ django_settings.WAGTAIL_SITE_NAME }}{% endblock %}
+
+{% block extra_meta_tags %}
+<meta name="robots" content="noindex" />
+{% endblock %}
+
+{% block title %}{% trans "Not found" %} | {{ django_settings.WAGTAIL_SITE_NAME }}{% endblock %}
+
+{% block breadcrumb %}{% endblock %}
+{% block post_breadcrumb %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>{% trans "Not found" %}</h1>
+    <p class="lead">{% trans "We cannot find the page you are looking for." %}</p>
+    <a href="/" class="btn btn-primary">{% trans "Back to home" %}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block classname %}table{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="table" %}{% endblock %}
+    {% block table %}
+    {% include "vicky/partials/table.html" with table=self.table %}
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "cms/blocks/base.html" %}
+
+{% block classname %}person{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="person" %}{% endblock %}
+    {% block persons %}
+    <div class="row">
+        {% for person in self.persons %}
+        <div class="col">
+            {% include "cms/blocks/snippets/includes/person.html" with person=person only %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

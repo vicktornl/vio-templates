@@ -1,0 +1,16 @@
+<li class="nav-item dropdown">
+    {% if self.name %}
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ self.name }}
+    </a>
+    {% endif %}
+    {% if self.items %}
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            {% for item in self.items %}
+                <li class="mb-1">
+                    <a class="dropdown-item" href="{{ item.value.button_url }}" target="{{ item.value.button_target }}" >{{ item.value.label }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

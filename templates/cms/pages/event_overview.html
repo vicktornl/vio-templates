@@ -1,0 +1,29 @@
+{% extends "cms/pages/base.html" %}
+
+{% load vicky wagtailcore_tags %}
+
+{% block body_classname %}event-overview{% endblock %}
+
+{% block content %}
+{% for block in self.content %}
+    {% include_block block %}
+{% endfor %}
+<section class="b-block b-events">
+    <div class="container">
+        {% block events %}
+        <div class="row">
+            {% for event in page_obj %}
+            <div class="col-12 mb-3">
+                {% include "cms/blocks/includes/event.html" with event=event parent=page %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endblock %}
+        {% block pagination %}
+        {% if page_obj.paginator.num_pages > 1 %}
+            {% render_pagination page_obj %}
+        {% endif %}
+        {% endblock %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load vicky wagtailcore_tags %}
+
+{% block classname %}articles{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="articles" %}{% endblock %}
+    {% block articles %}
+    <div class="row">
+        {% get_articles as articles %}
+        {% for article in articles %}
+        <div class="col-12 col-lg mb-3">
+            {% include "cms/blocks/includes/article.html" with article=article only %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+    {% block actions %}
+    <div class="b-articles__actions">
+        {% include_block self.buttons %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "cms/blocks/base.html" %}
+
+{% block classname %}code{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="code" %}{% endblock %}
+    {% block code %}
+    <div class="row">
+        <div class="col">
+            {{ self.code }}
+        </div>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

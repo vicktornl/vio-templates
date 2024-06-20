@@ -1,0 +1,12 @@
+<header class="c-header navbar navbar-expand-lg bg-white d-print-none">
+    <div class="container">
+        {% block logo %}
+        <a class="navbar-brand" href="/">
+            {{ django_settings.WAGTAIL_SITE_NAME }}
+        </a>
+        {% endblock %}
+        {% block navigation %}
+            {% include "cms/includes/header_navigation.html" %}
+        {% endblock %}
+    </div>
+</header>

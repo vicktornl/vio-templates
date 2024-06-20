@@ -1,0 +1,12 @@
+{% load vicky wagtailimages_tags %}
+
+<picture>
+    {% image item.image width-1080 format-webp as img_webp %}
+    {% image item.image width-1080 as img %}
+    <source data-srcset="{{ img_webp.url }}" type="image/webp">
+    <img data-src="{{ img.url }}" class="d-block w-100 lazyload img-fluid" alt="{{ image.title }}">
+</picture>
+<div class="carousel-caption d-none d-md-block">
+    <h5>{{ item.title }}</h5>
+    <p>{{ item.subtitle }}</p>
+</div>

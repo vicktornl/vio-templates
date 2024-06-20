@@ -1,0 +1,8 @@
+{% block pre_block_content %}{% endblock %}
+<section class="b-block b-{% block classname %}block{% endblock %}" {% block attrs %}{% endblock %} data-block-id="{{ block_id }}" data-block-name="{{ block_name }}">
+    {% block pre_content %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block post_content %}{% endblock %}
+</section>
+{% block post_block_content %}{% endblock %}
+{% block scripts %}{% endblock %}

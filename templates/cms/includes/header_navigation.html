@@ -1,0 +1,52 @@
+{% load i18n vicky %}
+
+{% block pre_toggler %}{% endblock %}
+{% block toggler %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+    <span class="navbar-toggler-icon"></span>
+</button>
+{% endblock %}
+{% block post_toggler %}{% endblock %}
+
+{% block pre_navigation %}{% endblock %}
+{% block navigation %}
+<div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+        {% for item in settings.cms.sitesettings.header_menu.items %}
+            {% unique_id "nav-item" as id %}
+            {% if item.block_type == "button" %}
+                <li class="nav-item">
+                    {% for button in item.value %}
+                        <a class="nav-link" href="{{ button.value.button_url }}" target="{{ button.value.button_target }}">{{ button.value.label }}</a>
+                    {% endfor %}
+                </li>
+            {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="{{ id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ item.value.name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="{{ id }}">
+                        {% for button in item.value.items %}
+                            <a class="dropdown-item" href="{{ button.value.button_url }}" target="{{ button.value.button_target }}">{{ button.value.label }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% block pre_actions %}{% endblock %}
+    {% block actions %}
+    {% block pre_search %}{% endblock %}
+    {% block search %}
+    {% if django_settings.VICKY_SEARCH_ENABLED %}
+    <form class="form-inline ms-auto" action="{% url 'search:results' %}" method="GET">
+        <input class="form-control" name="q" type="search" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
+    </form>
+    {% endif %}
+    {% endblock %}
+    {% block post_search %}{% endblock %}
+    {% endblock %}
+    {% block post_actions %}{% endblock %}
+</div>
+{% endblock %}
+{% block post_navigation %}{% endblock %}
