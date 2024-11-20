@@ -1,0 +1,23 @@
+{% load vicky wagtailimages_tags %}
+
+<div class="c-usp card h-100">
+    {% if usp.image %}
+        {% image usp.image fill-1000x1000 as img %}
+        <img src="{{ img.url }}" class="c-usp__image card-img-top" alt="{{ img.title }}">
+    {% endif %}
+    <div class="card-body">
+        {% block title %}
+            {% if usp.title %}
+                <h3 class="c-usp__title card-title">{{ usp.title }}</h3>
+            {% endif %}
+        {% endblock %}
+        {% block subtitle %}
+            {% if usp.subtitle %}
+                <p class="c-usp__subtitle card-text">{{ usp.subtitle }}</p>
+            {% endif %}
+        {% endblock %}
+        {% if usp.target %}
+            <a href="{% target_href usp.target %}" target="{% target usp.target %}" class="stretched-link"></a>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{% extends "cms/blocks/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block classname %}usps{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block title %}{% include "cms/blocks/includes/title.html" with modifier="usps" %}{% endblock %}
+    {% block usps %}
+    <div class="row">
+        {% for item in self.items %}
+        <div class="col-12 col-lg-{{ col_size_lg }} mb-3">
+            {% include "cms/blocks/includes/usp.html" with usp=item only %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+    {% block actions %}
+        {% if self.buttons %}
+        <div class="b-usps__actions mt-5">
+            {% include_block self.buttons %}
+        </div>
+        {% endif %}
+    {% endblock %}
+</div>
+{% endblock %}
