@@ -1,0 +1,29 @@
+{% extends "cms/pages/base.html" %}
+
+{% load vicky wagtailcore_tags %}
+
+{% block body_classname %}case-study-overview{% endblock %}
+
+{% block content %}
+{% for block in self.content %}
+    {% include_block block %}
+{% endfor %}
+<section class="b-block b-articles">
+    <div class="container">
+        {% block case_studies %}
+        <div class="row">
+            {% for case_study in page_obj %}
+            <div class="col col-12 col-lg-{% if forloop.first %}6{% else %}3{% endif %} mb-3">
+                {% include "cms/blocks/includes/case_study.html" with first=forloop.first case_study=case_study only %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endblock %}
+        {% block pagination %}
+        {% if page_obj.paginator.num_pages > 1 %}
+            {% render_pagination page_obj %}
+        {% endif %}
+        {% endblock %}
+    </div>
+</section>
+{% endblock %}

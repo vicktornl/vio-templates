@@ -1,0 +1,15 @@
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+
+<div class="card h-100">
+    {% if case_study.image %}
+        {% image case_study.image fill-1000x1000 as img %}
+        <img src="{{ img.url }}" class="card-img-top" alt="{{ img.title }}">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ case_study.title }}</h5>
+        {% if case_study.short_description %}
+            <p class="text-truncate">{{ case_study.short_description }}</p>
+        {% endif %}
+        <a href="{{ case_study.url }}" class="btn btn-primary stretched-link">{% trans "Read more" %}</a>
+    </div>
+</div>
