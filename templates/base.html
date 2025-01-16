@@ -1,4 +1,4 @@
-{% load i18n vicky static wagtailthemebuilder_tags wagtailcore_tags wagtailuserbar hijack %}
+{% load i18n vicky static wagtailthemebuilder_tags wagtailcore_tags wagtailimages_tags wagtailuserbar hijack %}
 {% with settings.cms.SiteSettings as site_settings %}
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}" prefix="og: http://ogp.me/ns#">
@@ -7,8 +7,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block favicon %}
-        <link rel="icon" type="image/png" sizes="32x32" href="{% theme 'static/favicon-32x32.png' %}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{% theme 'static/favicon-16x16.png' %}">
+            {% if site_settings.site_favicon %}
+                {% image site_settings.site_favicon format-ico as favicon %}
+                <link rel="icon" type="image/x-icon" href="{{ favicon.url }}"/>
+            {% endif %}
         {% endblock %}
         {% block meta_tags %}
         <meta name="title" content="{% block meta_title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}">
